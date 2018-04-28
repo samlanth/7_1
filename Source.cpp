@@ -11,7 +11,7 @@ using namespace std;
 //	int n2 = (LaFraction.GetDen());
 //	CFraction Nouveau(NouvelleVal,n2);
 //	return Nouveau;
-//}
+//}   
 
 CFraction operator+(int Valeur, const CFraction &LaFraction)
 {
