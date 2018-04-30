@@ -6,13 +6,21 @@ class CFraction
 private:
 	int num_;
 	int den_;
-
+	static int Compteur_;
+	static void SetCompteur(int compteur) { Compteur_ = compteur; }
 public:
 	//Une CFraction devra avoir un constructeur paramétrique qui permet de donner les deux nombres qui la composent,
 	//seulement le numérateur (1 sera alors utilisé comme dénominateur par défaut) ou rien du tout (0/1 sera alors la fraction par défaut obtenue).
 	CFraction(int num, int den);
 	CFraction(int nombre);
 	CFraction();
+	CFraction(const CFraction& f) {
+		this->num_ = f.num_;
+		this->den_ = f.den_;
+		Compteur_++;
+	}
+
+	~CFraction();
 	void SetNum(int num);
 	void SetDen(int den);
 	int GetDen() const;
@@ -25,6 +33,6 @@ public:
 
 	CFraction operator++(int);
 	CFraction& operator++();
+	bool operator<(const CFraction& Fraction) const;
+	static int GetCompteur() { return Compteur_; }
 };
-
-CFraction operator+(const CFraction &LaFraction, int Valeur);

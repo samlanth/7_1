@@ -1,5 +1,7 @@
 #include "Fraction.h"
 
+int CFraction::Compteur_ = 0;
+
 int CFraction::GetDen() const 
 {
 	return den_;
@@ -21,34 +23,32 @@ void CFraction::SetNum(int num)
 CFraction::CFraction(int num, int den) 
 	: num_(num), den_(den)
 {
+	Compteur_++;
 }
 CFraction::CFraction(int nombre)
 	: num_(nombre), den_(1)
 {
-
+	Compteur_++;
 }
 CFraction::CFraction()
 	: num_(0), den_(1)
 {
-
+	Compteur_++;
 }
+CFraction::~CFraction()
+{
+	Compteur_--;
+}
+
 bool CFraction::operator==(const CFraction& f) const
 {
 	double d1 = static_cast<double>(num_) / static_cast<double>(den_);
 	double d2 = static_cast<double>(f.num_) / static_cast<double>(f.den_);
 	return (d1 == d2);
-	//if (num_ == Fraction.num_ && den_ == Fraction.den_ || (num_ * Fraction.den_) == (den_ * Fraction.num_))
-	//	return true;
-	//else
-	//	return false;
 }
 bool CFraction::operator!=(const CFraction& Fraction) const
 {
 	return !operator==(Fraction);
-	//if (num_ != Fraction.num_ && den_ != Fraction.den_ || (num_ * Fraction.den_) != (den_ * Fraction.num_))
-	//	return true;
-	//else
-	//	return false;
 }
 CFraction& CFraction::operator=(const CFraction& Fraction)
 {
@@ -73,18 +73,6 @@ CFraction& CFraction::operator+=(const CFraction& LaFraction)
 	return *this;
 }
 
-// global
-CFraction operator+(const CFraction &LaFraction, int Valeur)
-{
-	// f5 + 3
-	Valeur = Valeur * LaFraction.GetDen();
-
-	int NouvelleVal = (LaFraction.GetNum() + Valeur);
-	int n2 = (LaFraction.GetDen());
-	CFraction Nouveau(NouvelleVal, n2);
-	return Nouveau;
-}
-
 CFraction CFraction::operator++(int)
 {
 	// n1/d1 + 1 = (n1+1*d1)/d1
@@ -98,4 +86,14 @@ CFraction& CFraction::operator++()
 	// n1/d1 + 1 = (n1+1*d1)/d1
 	this->num_ = this->num_ + 1 * this->den_;
 	return *this;
+}
+
+bool CFraction::operator<(const CFraction& Fraction) const
+{
+	double d1 = static_cast<double>(GetNum()) / static_cast<double>(GetDen());
+	double d2 = static_cast<double>(Fraction.GetNum()) / static_cast<double>(Fraction.GetDen());
+	if (d1 < d2)
+		return true;
+	else
+		return false;
 }
