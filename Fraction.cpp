@@ -1,3 +1,4 @@
+//sam l
 #include "Fraction.h"
 
 int CFraction::Compteur_ = 0;
